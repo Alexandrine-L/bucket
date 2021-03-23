@@ -1,0 +1,25 @@
+body {
+    font-family: 'Courgette', cursive;
+}
+
+#title1 {
+    padding-top: 2%;
+    text-align: left;
+    color: darkslateblue;
+    text-shadow: 4px 4px 6px antiquewhite;
+}
+
+footer{
+    margin-top: 1%;
+    text-align: center;
+}
+
+.navbar{
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+.hero {
+    background: antiquewhite url('../img/dreams.jpg') center center no-repeat;
+    height: 533px;
+}
