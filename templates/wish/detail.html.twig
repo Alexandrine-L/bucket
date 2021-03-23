@@ -4,15 +4,18 @@
 
 {% block body %}
     <section class="container">
-        <h2 id="title1">A propos du:</h2>
+        <h2 id="title1">A propos du rêve:</h2>
         <div class="container-fluid">
-            <h3 id="title1">Rêve 1</h3>
-            <ul>
-                <li>categorie:</li>
-                <li>date d'ajout à la liste:</li>
-                <li>date de réalisation:</li>
-                <li>commentaires:</li>
-            </ul>
+            <h3 id="title1">{{ detail.title }}</h3>
+            <p>il a été déposé le {{ detail.dateCreated|date("d/m/Y") }} par {{ detail.author }}.</p>
+            {% if detail.isPublished %}
+                <p>Publication en cours.</p>
+            {% else %}
+                <p>Publication expirée.</p>
+            {% endif %}
+            {% if detail.description %}
+                <p>description: {{ detail.description }}</p>
+            {% endif %}
         </div>
     </section>
 {% endblock %}

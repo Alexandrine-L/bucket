@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <ul>
                 {% for wish in wishes %}
-                <li>{{ wish.title }}</li>
+                <a href="{{ path('wish_detail', {'id': wish.id}) }}"><li>{{ wish.title }}</li></a>
                 {% endfor %}
             </ul>
         </div>

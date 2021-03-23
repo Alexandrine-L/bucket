@@ -25,8 +25,12 @@ class WishController extends AbstractController
     /**
      * @Route("/rêve{id}", name="wish_detail")
      */
-    public function detail($id)
+    public function detail($id, WishRepository $wishRepository)
     {
-        return $this->render("wish/detail.html.twig");
+        $detail = $wishRepository->find($id);
+
+        return $this->render("wish/detail.html.twig", [
+            "detail" => $detail
+        ]);
     }
 }
