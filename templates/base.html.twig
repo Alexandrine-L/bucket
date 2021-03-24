@@ -31,18 +31,29 @@
                     <div class="navbar-nav">
                         <a class="nav-link active" aria-current="page" href="{{ path('main_home') }}">Accueil</a>
                         <a class="nav-link active" aria-current="page" href="{{ path('wish_list') }}">Liste de rêves</a>
+                        <a class="nav-link active" aria-current="page" href="{{ path('wish_addWish') }}">Ajouter un rêve</a>
                         <a class="nav-link active" aria-current="page" href="{{ path('main_aboutUs') }}">A propos de nous</a>
                     </div>
                 </div>
             </div>
         </nav>
+
     </header>
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <main>
         {% block body %}{% endblock %}
     </main>
     <footer>
         <div class="container">
-                 <span>&copy;Bucket-List</span><span>{{ "now"|date("Y") }}</span>
+                 &copy;Bucket-List {{ "now"|date("Y") }}
         </div>
     </footer>
 

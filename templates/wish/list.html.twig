@@ -5,6 +5,9 @@
 {% block body %}
     <section class="container">
         <h2 id="title1">Liste de rêves à réaliser!</h2>
+
+        <a href="{{ path('wish_list', {'page': currentPage+1}) }}">page suivante</a>
+
         <div class="container-fluid">
             <ul>
                 {% for wish in wishes %}

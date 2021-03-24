@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\WishRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=WishRepository::class)
+ * @UniqueEntity(fields={"title", "author"}, message = "ce rêve a déjà été ajouter par cet auteur")
  */
 class Wish
 {
@@ -18,16 +21,30 @@ class Wish
     private $id;
 
     /**
+     * @Assert\NotBlank(message = "Veuillez renseigner ce champ")
+     * @Assert\Length(
+     *     min=5,
+     *     max=250,
+     *     minMessage="ce champ doit contenir minimum 5 caractères",
+     *     maxMessage="la taille maximale est de 250 caractères",
+     * )
      * @ORM\Column(type="string", length=250)
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
+     * @Assert\NotBlank(message = "Veuillez renseigner ce champ")
+     * @Assert\Length(
+     *     min=3,
+     *     max=50,
+     *     minMessage="ce champ doit contenir minimum 3 caractères",
+     *     maxMessage="la taille maximale est de 50 caractères",
+     * )
      * @ORM\Column(type="string", length=50)
      */
     private $author;
@@ -41,6 +58,11 @@ class Wish
      * @ORM\Column(type="datetime")
      */
     private $dateCreated;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $likes;
 
     public function getId(): ?int
     {
@@ -103,6 +125,18 @@ class Wish
     public function setDateCreated(\DateTimeInterface $dateCreated): self
     {
         $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getLikes(): ?int
+    {
+        return $this->likes;
+    }
+
+    public function setLikes(int $likes): self
+    {
+        $this->likes = $likes;
 
         return $this;
     }
