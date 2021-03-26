@@ -27,13 +27,40 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="{{ path('main_home') }}">Accueil</a>
-                        <a class="nav-link active" aria-current="page" href="{{ path('wish_list') }}">Liste de rêves</a>
-                        <a class="nav-link active" aria-current="page" href="{{ path('wish_addWish') }}">Ajouter un rêve</a>
-                        <a class="nav-link active" aria-current="page" href="{{ path('main_aboutUs') }}">A propos de nous</a>
-                    </div>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('main_home') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('wish_list') }}">Liste de rêves</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('main_aboutUs') }}">A propos de nous</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        {% if app.user %}
+                        <li class="navbar-text">
+                            Bonjour {{ app.user.pseudo }}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('wish_addWish') }}">Ajouter un rêve</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Se déconnecter</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}">S'inscrire</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    </span>
                 </div>
             </div>
         </nav>

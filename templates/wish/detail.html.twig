@@ -5,6 +5,7 @@
 {% block body %}
     <section class="container">
         <h2 id="title1">A propos du rêve:</h2>
+
         <div class="container-fluid">
             <h3 id="title1">{{ detail.title }}</h3>
             <p>il a été déposé le {{ detail.dateCreated|date("d/m/Y") }} par {{ detail.author }}.</p>
@@ -17,5 +18,22 @@
                 <p>description: {{ detail.description }}</p>
             {% endif %}
         </div>
+
+        <div class="container-fluid">
+            <h3 id="title1">Ajouter un commentaire</h3>
+            {{ form_start(newCommentForm) }}
+            {{ form_widget(newCommentForm) }}
+            <button>Publier</button>
+            {{ form_end(newCommentForm) }}
+        </div>
+
+        <div class="container-fluid">
+            <h3 id="title1">Commentaires publiées:</h3>
+            {% for reaction in reactions %}
+                <p>Commentaire de {{ reaction.username }} déposé le {{ reaction.dateCreated|date("d/m/Y") }}.</p>
+                <p>{{ reaction.message }}</p>
+            {% endfor %}
+        </div>
+
     </section>
 {% endblock %}

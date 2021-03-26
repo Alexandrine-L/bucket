@@ -11,7 +11,7 @@
         <div class="container-fluid">
             <ul>
                 {% for wish in wishes %}
-                <a href="{{ path('wish_detail', {'id': wish.id}) }}"><li>{{ wish.title }}</li></a>
+                <a href="{{ path('wish_detail', {'id': wish.id}) }}"><li>{{ wish.title }} (Categorie: {{ wish.category.name }})</li></a>
                 {% endfor %}
             </ul>
         </div>

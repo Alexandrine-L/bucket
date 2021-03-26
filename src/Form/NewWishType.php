@@ -2,10 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Wish;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,7 +28,11 @@ class NewWishType extends AbstractType
             ->add('author', TextType::class, [
                 'label' => 'Auteur :',
             ])
-            ->add('Valider', SubmitType::class)
+            ->add('category', EntityType::class, [
+                'label' => 'Ajouter une catégorie :',
+                'class' => Category::class,
+                'choice_label' => 'name',
+            ])
         ;
     }
 

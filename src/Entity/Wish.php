@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WishRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -63,6 +65,21 @@ class Wish
      * @ORM\Column(type="integer")
      */
     private $likes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="wishes")
+     */
+    private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reaction::class, mappedBy="wish")
+     */
+    private $reactions;
+
+    public function __construct()
+    {
+        $this->reactions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +154,48 @@ class Wish
     public function setLikes(int $likes): self
     {
         $this->likes = $likes;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reaction[]
+     */
+    public function getReactions(): Collection
+    {
+        return $this->reactions;
+    }
+
+    public function addReaction(Reaction $reaction): self
+    {
+        if (!$this->reactions->contains($reaction)) {
+            $this->reactions[] = $reaction;
+            $reaction->setWish($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReaction(Reaction $reaction): self
+    {
+        if ($this->reactions->removeElement($reaction)) {
+            // set the owning side to null (unless already changed)
+            if ($reaction->getWish() === $this) {
+                $reaction->setWish(null);
+            }
+        }
 
         return $this;
     }

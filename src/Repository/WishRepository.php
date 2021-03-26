@@ -22,14 +22,18 @@ class WishRepository extends ServiceEntityRepository
     public function findWishList(int $page = 1)
     {
         //en QueryBuilder
-        $queryBuilber = $this->createQueryBuilder('w');
-        $offset = ($page - 1) * 20;
-        $queryBuilber->setFirstResult($offset);
-        $queryBuilber->andWhere('w.isPublished = true');
-        $queryBuilber->addOrderBy('w.dateCreated', 'DESC');
-        $queryBuilber->setMaxResults(20);
+        $queryBuilder = $this->createQueryBuilder('w');
 
-        $query = $queryBuilber->getQuery();
+        $queryBuilder->andWhere('w.isPublished = true');
+        $queryBuilder->leftJoin('w.category', 'c')
+            ->addSelect('c');
+
+        $offset = ($page - 1) * 20;
+        $queryBuilder->setFirstResult($offset);
+        $queryBuilder->addOrderBy('w.dateCreated', 'DESC');
+        $queryBuilder->setMaxResults(20);
+
+        $query = $queryBuilder->getQuery();
 
         $result = $query->getResult();
 

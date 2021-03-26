@@ -5,7 +5,15 @@
 {% block body %}
     <h2>Ajouter un rêve!</h2>
 
-    <di>{{ form(newWishForm) }}</di>
+    {{ form_start(newWishForm) }}
+    {{ form_row(newWishForm.title) }}
+    {{ form_row(newWishForm.description) }}
+    {{ form_row(newWishForm.author, {
+        value: app.user.pseudo
+    }) }}
+    <button type="submit">Valider</button>
+    {{ form_end(newWishForm) }}
+
 {% endblock %}
 
 
